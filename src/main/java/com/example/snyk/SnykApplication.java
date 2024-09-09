@@ -1,4 +1,4 @@
-===========Original Code ======================
+// ===========Original Code ======================
 package com.example.snyk;
 
 import org.springframework.boot.SpringApplication;
@@ -10,9 +10,9 @@ public class SnykApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SnykApplication.class, args);
 	}
-
 }
-======================================
+
+// ======================================
 // package com.example.snyk;
 
 // import org.springframework.boot.SpringApplication;
