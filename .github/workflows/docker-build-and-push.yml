@@ -30,7 +30,7 @@ jobs:
 
     - name: Login to Docker registry
       run: |
-        echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+        docker login -u $DOCKERHUB_USERNAME -p  $DOCKERHUB_PASSWORD 
 
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
