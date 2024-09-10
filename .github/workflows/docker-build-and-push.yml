@@ -5,6 +5,10 @@ on:
     branches:
       - main  # or your default branch
 
+env:
+  DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+  DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,20 +28,16 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-buildx-
 
-    - name: Print Docker Username
+    - name: Login to Docker registry
       run: |
-        echo "Docker Username: ${{ secrets.DOCKER_USERNAME }}"
+        docker login -u $DOCKERHUB_USERNAME -p  $DOCKERHUB_PASSWORD
 
-    - name: Build Docker image
-      run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/snykdemo:latest .
-
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Push Docker image
-      run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/snykdemo:latest
+    - name: Build & push Docker image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: ananddocker2022/snykdemo
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
