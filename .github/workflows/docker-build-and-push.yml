@@ -24,6 +24,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-buildx-
 
+    - name: Print Docker Username
+      run: |
+        echo "Docker Username: ${{ secrets.DOCKER_USERNAME }}"
+
     - name: Build Docker image
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/snykdemo:latest .
