@@ -18,7 +18,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file from the build stage
-# COPY --from=build /app/target/snykdemo-0.0.1-SNAPSHOT.jar /app/snykdemo.jar
+COPY --from=build /app/target/snykdemo-0.0.1-SNAPSHOT.jar /app/snykdemo.jar
 
 # Run the JAR file
 # ENTRYPOINT ["java", "-jar", "/app/snykdemo.jar"]
