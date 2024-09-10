@@ -6,8 +6,8 @@ on:
       - main  # or your default branch
 
 env:
-  DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-  DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 jobs:
   build:
@@ -30,14 +30,14 @@ jobs:
 
     - name: Login to Docker registry
       run: |
-        docker login -u $DOCKERHUB_USERNAME -p  $DOCKERHUB_PASSWORD
+        echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
 
     - name: Build & push Docker image
-        uses: mr-smithers-excellent/docker-build-push@v5
-        with:
-          image: ananddocker2022/snykdemo
-          tags: latest
-          registry: docker.io
-          dockerfile: Dockerfile
-          username: ${{secrets.DOCKERHUB_USERNAME}}
-          password: ${{secrets.DOCKERHUB_PASSWORD}}
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: ananddocker2022/snykdemo
+        tags: latest
+        registry: docker.io
+        dockerfile: Dockerfile
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
