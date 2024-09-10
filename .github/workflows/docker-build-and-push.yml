@@ -25,7 +25,8 @@ jobs:
           ${{ runner.os }}-buildx-
 
     - name: Print Docker Username
-      run: echo "Docker Username: ${{ secrets.DOCKER_USERNAME }}"
+      run: |
+        echo "Docker Username: ${{ secrets.DOCKER_USERNAME }}"
 
     - name: Build Docker image
       run: |
